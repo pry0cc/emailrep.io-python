@@ -30,7 +30,8 @@ Setup your API key:
 emailrep setup -k <your api key>
 
 """)
-
+    parser.add_argument('email', type=str,
+                    help='an integer for the accumulator')
     parser.add_argument('-r', '--report', help='Email address to report',
             action='store', dest='report', type=str, required=False)
     parser.add_argument('--tags', help='Tags that should be applied',
@@ -41,6 +42,9 @@ emailrep setup -k <your api key>
             action='store', dest='timestamp', type=str, required=False)
     parser.add_argument('--expires', help='Number of hours the email should be considered risky',
             action='store', dest='expires', type=int, required=False)
+    parser.add_argument('--format', help='Format to output in, e.g json',
+            action='store', dest='format', type=str, required=False)
+
 
     if len(sys.argv) <= 1:
         parser.print_help()
@@ -49,12 +53,11 @@ emailrep setup -k <your api key>
     elif sys.argv[1] == "setup":
         setup()
 
-    elif len(sys.argv) == 2 and '@' in sys.argv[1]:
-        return EmailRep.QUERY, Namespace(query=sys.argv[1])
-
     else:
         args = parser.parse_args()
-        if not args.report or not args.tags:
+        if args.email:
+            return EmailRep.QUERY, args
+        elif not args.report or not args.tags:
             print("--report and --tags and required for reporting email addresses")
             sys.exit()
         return EmailRep.REPORT, args

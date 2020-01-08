@@ -11,13 +11,19 @@ def main():
     emailrep = EmailRep(config.get('emailrep', 'key'))
     try:
         if action == EmailRep.QUERY:
-            result = emailrep.query(args.query)
+            result = emailrep.query(args.email)
 
             if result.get("status") and result["status"] == "fail":
                 print("Failed: %s" % result["reason"])
                 sys.exit()
 
-            emailrep.format_query_output(result)
+            if args.format:
+                if args.format == "json":
+                    print(result)
+                else:
+                    print("Format not supported")
+            else:
+                emailrep.format_query_output(result)
 
         elif action == EmailRep.REPORT:
             email = args.report
