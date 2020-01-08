@@ -1,4 +1,5 @@
 import sys
+import json
 from dateutil import parser
 
 from emailrep.utils import parse_args, setup, load_config
@@ -19,7 +20,7 @@ def main():
 
             if args.format:
                 if args.format == "json":
-                    print(result)
+                    print(json.dumps(result, indent=2, sort_keys=True))
                 else:
                     print("Format not supported")
             else:
