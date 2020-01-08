@@ -31,7 +31,7 @@ emailrep setup -k <your api key>
 
 """)
     parser.add_argument('email', type=str,
-                    help='an integer for the accumulator')
+                    help='Email to query')
     parser.add_argument('-r', '--report', help='Email address to report',
             action='store', dest='report', type=str, required=False)
     parser.add_argument('--tags', help='Tags that should be applied',
