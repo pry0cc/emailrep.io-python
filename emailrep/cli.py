@@ -20,7 +20,7 @@ def main():
 
             if args.format:
                 if args.format == "json":
-                    print(json.dumps(result, indent=2, sort_keys=True))
+                    print(json.dumps(result, indent=4, sort_keys=True))
                 else:
                     print("Format not supported")
             else:
